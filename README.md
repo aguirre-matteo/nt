@@ -20,6 +20,18 @@ to use. The available features are:
 # Table of contents
 
 - [Get Started](#get-started)
+    - [Commands](#commands)
+        - [Init](#init)
+        - [Browse](#browse)
+        - [Open note](#open-note)
+        - [Find](#find)
+        - [Grep](#grep)
+        - [Ls](#ls)
+        - [Rm](#rm)
+        - [Tree](#tree)
+    - [Configuration](#configuration)
+- [Contributing](#contributing)
+- [Licence](#licence)
 
 # Get started
 Before using `nt`, you must first create a config file at `$XDG_CONFIG_HOME/nt` and set where your vault will be located:
