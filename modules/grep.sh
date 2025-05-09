@@ -6,5 +6,6 @@ grep_vault ()
   fi 
 
   vault=`get_vault`
+  assert_vault
   grep -r $1 $vault
 }

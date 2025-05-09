@@ -11,6 +11,7 @@ ls_vault ()
   fi 
 
   vault=`get_vault`
+  assert_vault
   path=$vault/$1
   path=`realpath -m $path`
   $cmd -1 $path

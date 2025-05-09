@@ -7,6 +7,7 @@ open_note ()
   
   arg=$1
   vault=`get_vault`
+  assert_vault
   destiny=$vault/$arg.md
   destiny=`realpath -m $destiny`
   noteDir=`dirname $destiny`

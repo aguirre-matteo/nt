@@ -6,6 +6,7 @@ rm_file ()
   fi 
 
   vault=`get_vault`
+  assert_vault
   path=$vault/$1
   path=`realpath -m $path`
 

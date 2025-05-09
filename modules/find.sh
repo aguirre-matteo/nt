@@ -6,5 +6,6 @@ find_file ()
   fi 
 
   vault=`get_vault`
+  assert_vault
   find $vault | sed "s|$vault||g" | grep -i $1
 }

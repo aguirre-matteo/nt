@@ -14,7 +14,8 @@ to use. The available features are:
 - Plain text note taking
 - Searching (with `find` and `grep`)
 - Daily notes
-- `fzf` and `eza` integration.
+- Simple yet powerful fzf-based browser. Enhanced version of [fuz.sh](https://gist.github.com/BaseCase/c45299e4f8474119881d708a4b728fbf).
+- `eza` integration.
 - Simple config file
 
 # Table of contents
@@ -22,8 +23,9 @@ to use. The available features are:
 - [Get Started](#get-started)
     - [Commands](#commands)
         - [Init](#init)
-        - [Browse](#browse)
         - [Open note](#open-note)
+        - [Fuz](#fuz)
+        - [Browse](#browse)
         - [Find](#find)
         - [Grep](#grep)
         - [Ls](#ls)
@@ -53,11 +55,14 @@ vault=/home/matteo/Documents/nt-vault
 ### Init
 `nt init`. Creates a basic structure in the vault.
 
-### Browse
-`nt browse | nt (no args)`. Opens a fzf-based browser with a preview of the contents of the selected note. Pressing enter will open that note with your prefered editor.
-
 ### Open Note
-`nt section/subsection/note_name`. Opens a note. Nesting is supported.
+`nt section/subsection/note_name`. Opens a note. Nesting sections is supported.
+
+### Fuz
+`nt fuz | nt (no args)`. Opens a fzf-based browser with a preview of the contents of the selected note. Pressing enter will open that note with your prefered editor.
+
+### Browse
+`nt browse`. Opens your vault with the configured file-manager.
 
 ### Find
 `nt find name`. Looks up in your vault for files that contains 'name' in its path.
@@ -72,14 +77,15 @@ vault=/home/matteo/Documents/nt-vault
 `nt rm section/files`. `rm` bind to your vault.
 
 ### Tree
-`nt tree|lt section` Draws a tree view of your vault or a section of it.
+`nt tree|lt section` Draws a tree view of your vault or a section of it. It will use `eza` if it's available.
 
 ## Configuration
 Each line in the config file is in the form "key=value". Here's an example config, with all the available options:
 
 ```
 vault=/home/username/Documents/vault # Must be manually set
-editor=nvim # If unset, will fallback to $EDITOR
+editor=nvim # Fallback to $EDITOR
+file-manager=yazi # Fallback to cd
 ```
 
 # Contributing

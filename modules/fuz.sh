@@ -1,4 +1,4 @@
-browse_vault ()
+open_fuz ()
 {
   if command -v fzf >/dev/null 2>&1; then
     echo > /dev/null
@@ -8,11 +8,7 @@ browse_vault ()
   fi 
 
   vault=`get_vault`
-
-  if [[ ! -d $vault ]]; then
-    echo "Error: vault $vault doesn't exists. Run 'nt init' first."
-    exit 1
-  fi
+  assert_vault
   
   workingDir=`pwd`
   cd $vault
@@ -21,7 +17,7 @@ browse_vault ()
 
   if [ -n "$file" ] ; then
     "$editor" "$file"
-    browse_vault ""
+    open_fuz ""
   fi
 
   cd $workingDir

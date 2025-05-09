@@ -1,12 +1,14 @@
 if [[ -z $1 ]]; then
-  browse_vault
+  open_fuz
   exit 0
 fi
 
 
 
 case $1 in
-  browse) browse_vault
+  fuz) open_fuz
+  ;;
+  browse) open_browser
   ;;
   init) init_vault ${@:2}
   ;;

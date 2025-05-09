@@ -16,6 +16,14 @@ get_conf_value ()
   fi
 }
 
+vault_path_unset_error()
+{
+  vault=`get_conf_value vault`
+  if [[ $1 -eq 1 ]] || [[ $vault == "notfound" ]]; then
+    echo "Error: vault path not set. Write it in the config file."
+  fi
+}
+
 get_vault ()
 {
   if [[ ! $# -eq 0 ]]; then
@@ -25,7 +33,7 @@ get_vault ()
 
   vault=`get_conf_value vault`
   if [[ $vault == "notfound" ]]; then
-    echo "Error: vault path not set. Write it in the config file."
+    vault_path_unset_error 1
     exit 1
   fi
   echo $vault
@@ -43,4 +51,17 @@ get_editor ()
     editor=$EDITOR
   fi 
   echo $editor
+}
+
+get_browser() {
+  if [[ ! $# -eq 0 ]]; then
+    echo "Error: get_browser doesn't expects arguments."
+    exit 1
+  fi 
+  
+  browser=`get_conf_value file-manager`
+  if [[ $browser == "notfound" ]]; then
+    browser=cd
+  fi 
+  echo $browser
 }
