@@ -6,7 +6,7 @@ get_conf_value ()
   fi 
 
   key=$1
-  confFile=~/.config/nt
+  confFile=$XDG_CONFIG_HOME/nt
   value=$(grep "^${key}=" "$confFile" | cut -d'=' -f2)
 
   if [[ -z $value ]]; then

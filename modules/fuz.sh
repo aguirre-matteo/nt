@@ -19,19 +19,27 @@ open_fuz ()
     cd $workingDir
     return 0
   else
-    open_note $file
+    open_case $file
     open_fuz
   fi
 }
 
 __select()
 {
-  output=`fzf --preview="cat {}" --preview-window=right:70%:wrap --print-query | grep -v '^[[:space:]]*$' | tail -n 1`
+  rawoutput=`fzf --preview="cat {}" --preview-window=right:70%:wrap --print-query | grep -v '^[[:space:]]*$'`
+  query=`echo "$rawoutput" | head -n 1`
+  output=`echo "$rawoutput" | tail -n 1`
   lines=`echo $output | wc -l`
 
   if [[ $lines -gt 1 ]]; then
     echo "Error: fzf returned more that 2 lines."
     exit 1
+  fi 
+
+  isSpecial=`__is_special_case $query`
+
+  if [[ $isSpecial == "true" ]]; then
+    file=$query
   elif [[ $lines -eq 1 ]] && [[ $output != "" ]]; then
     file=${output%.md}
   else 

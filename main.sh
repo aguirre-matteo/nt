@@ -22,11 +22,7 @@ case $1 in
   ;;
   lt|tree) tree_vault ${@:2}
   ;;
-  ..*) open_prev $@
-  ;;
-  .|d|daily|today) open_daily ${@:2}
-  ;;
-  *) open_note $@
+  *) open_case $@
   ;;
 esac
 
