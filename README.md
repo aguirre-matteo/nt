@@ -35,6 +35,9 @@ to use. The available features are:
         - [Rm](#rm)
         - [Tree](#tree)
     - [Configuration](#configuration)
+    - [Nix](#nix)
+        - [Setup](#setup)
+        - [Options](#options)
 - [Contributing](#contributing)
 - [Licence](#licence)
 
@@ -105,6 +108,76 @@ Each line in the config file is in the form "key=value". Here's an example confi
 vault=/home/username/Documents/vault # Must be manually set. Otherwise, nt would not work.
 editor=nvim # Fallback to $EDITOR
 file-manager=yazi
+```
+
+## Nix
+This repo provides a `flake.nix` including a package, overlay and a Home-Manager module for enabling `nt` using Nix.
+
+### Setup
+First, add this repo to your flake's inputs:
+
+```nix
+{
+  inputs = {
+    # ...
+    nt.url = "github:aguirre-matteo/nt";
+  };
+}
+```
+
+Then add the overlay and the Home-Manager module to your config, so you can enable `nt`:
+
+```nix
+{
+  outputs = { self, nixpkgs, home-manager, ...}@inputs: {
+    nixosConfigurations.nixos = nixpkgs.lib.nixosSystem {
+      # ...
+      modules = [
+        ./configuration.nix
+        home-manager.nixosModules.home-manager
+        {
+          home-manager = {
+            # ...
+            sharedModules = [
+              inputs.nt.homeManagerModule # <--- This installs the Home-Manager module
+            ];
+          };
+        }
+        {
+          nixpkgs.overlays = [
+            inputs.nt.overlay # <--- This installs the Nixpkgs overlay
+          ];
+        }
+      ];
+    };
+  };
+}
+```
+
+### Options
+The following options are available for Home-Manager at `programs.nt`:
+
+| Option     | Description                 |
+|------------|-----------------------------|
+| `enable`   | Enables `nt`                |
+| `package`  | The package to use for `nt` |
+| `fzf`      | The fzf package to use      |
+| `eza`      | The eza package to use      |
+| `settings` | ~/.config/nt settings       |
+
+Here's an example config: 
+
+```nix
+{
+  programs.nt = {
+    enable = true;
+    settings = {
+      vault = "/home/myuser/Documents/vault";
+      file-manager = "yazi";
+      editor = "emacs";
+    };
+  };
+}
 ```
 
 # Contributing
