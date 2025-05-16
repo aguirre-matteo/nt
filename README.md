@@ -102,9 +102,9 @@ Pressing enter will open that note with your prefered editor.
 Each line in the config file is in the form "key=value". Here's an example config, with all the available options:
 
 ```
-vault=/home/username/Documents/vault # Must be manually set
+vault=/home/username/Documents/vault # Must be manually set. Otherwise, nt would not work.
 editor=nvim # Fallback to $EDITOR
-file-manager=yazi # Fallback to cd
+file-manager=yazi
 ```
 
 # Contributing
