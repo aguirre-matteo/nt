@@ -15,15 +15,28 @@ open_fuz ()
   file=`__select`
   editor=`get_editor`
 
-  if [ -n "$file" ] ; then
-    "$editor" "$file"
-    open_fuz ""
+  if [[ $file == "terminate" ]]; then
+    cd $workingDir
+    return 0
+  else
+    open_note $file
+    open_fuz
   fi
-
-  cd $workingDir
 }
 
 __select()
 {
-  fzf --preview="cat {}" --preview-window=right:70%:wrap
+  output=`fzf --preview="cat {}" --preview-window=right:70%:wrap --print-query | grep -v '^[[:space:]]*$' | tail -n 1`
+  lines=`echo $output | wc -l`
+
+  if [[ $lines -gt 1 ]]; then
+    echo "Error: fzf returned more that 2 lines."
+    exit 1
+  elif [[ $lines -eq 1 ]] && [[ $output != "" ]]; then
+    file=${output%.md}
+  else 
+    file=terminate
+  fi
+
+  echo $file
 }
