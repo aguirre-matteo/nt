@@ -63,6 +63,7 @@ want to create a new note, type the path to it in fzf's text input. For example:
 `nt` will automatically handle the input to make sure it ends in `.md` so you don't have to worry about
 it. You can also open daily and previous daily notes following the same syntax described in the [CLI Section](#daily-note).
 
+![Fzf Browser Preview](./assets/preview.png)
 ## CLI Commands
 The following commands are available in the CLI. They're useful for making scripts that require
 interacting with your vault. 
